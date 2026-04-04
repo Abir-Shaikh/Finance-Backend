@@ -14,7 +14,7 @@ This project implements a finance dashboard backend where different users intera
 
 | Layer | Technology |
 |---|---|
-| Language | Java 17 |
+| Language | Java 25 |
 | Framework | Spring Boot 4 |
 | Security | Spring Security (HTTP Basic Auth) |
 | Database | H2 (in-memory) |
@@ -57,7 +57,7 @@ src/main/java/com/finance/dashboard/
 ## Getting Started
 
 ### Prerequisites
-- Java 17+
+- Java 25+
 - Maven
 
 ### Run the application

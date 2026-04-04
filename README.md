@@ -4,6 +4,14 @@ A RESTful backend API built with Spring Boot for managing financial records with
 
 ---
 
+## API Documentation
+
+Full API documentation with request examples and expected responses is available here:
+
+[View Postman Docs](https://documenter.getpostman.com/view/52507217/2sBXiqDU7F)
+
+---
+
 ## Overview
 
 This project implements a finance dashboard backend where different users interact with financial records based on their assigned role. The system supports user management, financial record CRUD operations, dashboard-level analytics, and enforces strict role-based access control across all endpoints.
@@ -57,7 +65,7 @@ src/main/java/com/finance/dashboard/
 ## Getting Started
 
 ### Prerequisites
-- Java 25+
+- Java 17+
 - Maven
 
 ### Run the application
@@ -244,3 +252,39 @@ Validation errors return field-level messages:
 - JPA entity modeling with proper annotations
 - RESTful API design with correct HTTP methods and status codes
 - Dashboard-level data aggregation using Java streams
+
+---
+
+## Future Improvements
+
+### Security
+- Replace HTTP Basic Auth with JWT (JSON Web Tokens) for stateless, production-grade authentication
+- Add BCrypt password hashing for secure credential storage
+- Implement token refresh and logout functionality
+- Add rate limiting to prevent brute force attacks on auth endpoints
+
+### Database
+- Switch from H2 in-memory to a persistent database like MySQL or PostgreSQL
+- Implement soft delete so records are deactivated rather than permanently removed
+- Add database migrations using Flyway or Liquibase for version-controlled schema changes
+
+### API
+- Add pagination and sorting to all list endpoints to handle large datasets efficiently
+- Add date range filtering to the records filter endpoint
+- Expand dashboard endpoints to include weekly and monthly trend reports
+- Add search functionality to find records by keyword in notes or category
+
+### User Management
+- Restrict self-registration — only admins should be able to assign roles above VIEWER
+- Add email verification on registration
+- Implement account lockout after multiple failed login attempts
+
+### Code Quality
+- Add unit tests for service layer using JUnit and Mockito
+- Add integration tests for controller layer using MockMvc
+- Add API documentation using Swagger / OpenAPI 3
+
+### DevOps
+- Containerize the application using Docker
+- Add a CI/CD pipeline using GitHub Actions
+- Deploy to a cloud platform such as AWS, Railway, or Render

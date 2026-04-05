@@ -72,7 +72,7 @@ src/main/java/com/finance/dashboard/
 
 ```bash
 git clone https://github.com/Abir-Shaikh/Finance-Backend.git
-cd Finance-Data-Processing-and-Access-Control-Backend
+cd Finance-Backend
 mvn spring-boot:run
 ```
 

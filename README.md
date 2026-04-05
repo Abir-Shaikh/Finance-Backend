@@ -71,7 +71,7 @@ src/main/java/com/finance/dashboard/
 ### Run the application
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Abir-Shaikh/Finance-Backend.git
 cd Finance-Data-Processing-and-Access-Control-Backend
 mvn spring-boot:run
 ```

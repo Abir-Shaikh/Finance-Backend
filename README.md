@@ -65,7 +65,7 @@ src/main/java/com/finance/dashboard/
 ## Getting Started
 
 ### Prerequisites
-- Java 17+
+- Java 25+
 - Maven
 
 ### Run the application
@@ -105,13 +105,9 @@ http://localhost:8080/h2-console
 
 ## Authentication
 
-This project uses HTTP Basic Auth. Send credentials with every request:
+This project uses HTTP Basic Auth. Send credentials with every request.
 
-```
-Authorization: Basic <base64(email:password)>
-```
-
-In Postman: Authorization tab → Basic Auth → enter email and `password` as the password.
+In Postman: Authorization tab → Basic Auth → enter email as username and `password` as the password.
 
 > Note: All users share the fixed password `password` for simplicity in this assessment setup.
 
@@ -141,8 +137,7 @@ In Postman: Authorization tab → Basic Auth → enter email and `password` as t
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | POST | `/api/records` | ADMIN | Create a record |
-| GET | `/api/records` | ANALYST, ADMIN | Get all records |
-| GET | `/api/records/{id}` | ANALYST, ADMIN | Get record by ID |
+| GET | `/api/records` | ANALYST, ADMIN | Get all records (paginated) |
 | GET | `/api/records/filter` | ANALYST, ADMIN | Filter by type and/or category |
 | PUT | `/api/records/{id}` | ADMIN | Update a record |
 | DELETE | `/api/records/{id}` | ADMIN | Delete a record |
@@ -156,6 +151,12 @@ In Postman: Authorization tab → Basic Auth → enter email and `password` as t
   "date": "2024-04-01",
   "notes": "Monthly salary"
 }
+```
+
+**Pagination:**
+```
+GET /api/records?page=0&size=10
+GET /api/records?page=1&size=2
 ```
 
 **Filter examples:**
@@ -233,16 +234,6 @@ Validation errors return field-level messages:
 
 ---
 
-## Assumptions
-
-- H2 in-memory database is used for simplicity — data resets on every restart
-- All users share a fixed password `password` — in production this would use BCrypt hashing
-- New users can self-register with any role — in production, role assignment would be restricted to admins
-- `type` field accepts only `income` or `expense` — validated in the service layer
-- Soft delete is not implemented — deletes are permanent
-
----
-
 ## What This Project Demonstrates
 
 - Clean layered architecture — Controller → Service → Repository
@@ -252,6 +243,17 @@ Validation errors return field-level messages:
 - JPA entity modeling with proper annotations
 - RESTful API design with correct HTTP methods and status codes
 - Dashboard-level data aggregation using Java streams
+- Pagination for efficient data retrieval
+
+---
+
+## Assumptions
+
+- H2 in-memory database is used for simplicity — data resets on every restart
+- All users share a fixed password `password` — in production this would use BCrypt hashing
+- New users can self-register with any role — in production, role assignment would be restricted to admins
+- `type` field accepts only `income` or `expense` — validated in the service layer
+- Soft delete is not implemented — deletes are permanent
 
 ---
 
@@ -269,7 +271,6 @@ Validation errors return field-level messages:
 - Add database migrations using Flyway or Liquibase for version-controlled schema changes
 
 ### API
-- Add pagination and sorting to all list endpoints to handle large datasets efficiently
 - Add date range filtering to the records filter endpoint
 - Expand dashboard endpoints to include weekly and monthly trend reports
 - Add search functionality to find records by keyword in notes or category

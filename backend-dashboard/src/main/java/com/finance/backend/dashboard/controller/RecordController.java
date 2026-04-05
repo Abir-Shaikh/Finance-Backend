@@ -3,6 +3,7 @@ package com.finance.backend.dashboard.controller;
 import com.finance.backend.dashboard.model.FinancialRecord;
 import com.finance.backend.dashboard.service.RecordService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,24 +19,26 @@ public class RecordController {
     }
 
     @PostMapping
-    public FinancialRecord create(@Valid @RequestBody FinancialRecord record){
+    public FinancialRecord create(@Valid @RequestBody FinancialRecord record) {
         return recordService.create(record);
     }
 
     @GetMapping
-    public List<FinancialRecord> getAll(){
-        return recordService.getAll();
+    public Page<FinancialRecord> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return recordService.getAll(page, size);
     }
 
     @GetMapping("/filter")
     public List<FinancialRecord> filter(
-            @RequestParam(required = false)String type,
-            @RequestParam(required = false) String category){
-        return recordService.filter(type,category);
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String category) {
+        return recordService.filter(type, category);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         recordService.delete(id);
     }
 }
